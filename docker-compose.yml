@@ -1,0 +1,34 @@
+version: '3.3'
+
+services:
+  customer-service:
+    restart: unless-stopped
+    build: .
+    ports:
+      - "9101:9101"
+    depends_on:
+      - db
+    environment:
+      - KV_VIPER_FILE=/config.yaml
+    volumes:
+      - ./config.yaml:/config.yaml
+    command: run service
+
+
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+      - PGDATA=/data/pgdata
+      - ENSUREDB=1
+    volumes:
+      - database_data:/var/lib/postgresql/data
+
+volumes:
+  database_data:
+    driver: local
