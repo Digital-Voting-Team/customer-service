@@ -1,0 +1,11 @@
+type: object
+required:
+  - id
+  - type
+properties:
+  id:
+    type: uint64
+  type:
+    type: string
+    enum:
+      - customer

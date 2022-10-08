@@ -1,0 +1,97 @@
+parameters:
+  - name: id
+    in: path
+    description: 'Customer identifier'
+    required: true
+    schema:
+      type: int64
+
+get:
+  tags:
+    - Customer
+  summary: Get Customer
+  description: 'Get customer by id'
+  operationId: getCustomer
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: '#/components/schemas/Customer'
+    '400':
+      description: Invalid request
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    '404':
+      description: Customer not found
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    '500':
+      description: Failed to get customer
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+
+put:
+  tags:
+    - Customer
+  summary: Update Customer
+  description: 'Update customer by id'
+  operationId: updateCustomer
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              type: object
+              $ref: '#/components/schemas/Customer'
+  responses:
+    '200':
+      description: Customer updated
+    '404':
+      description: Invalid customer id
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    '500':
+      description: Failed to get customer or failed to mark customer deleted
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+
+
+delete:
+  tags:
+    - Customer
+  summary: Delete Customer
+  description: 'Delete customer by id'
+  operationId: deleteCustomer
+  responses:
+    '204':
+      description: Customer deleted
+    '404':
+      description: Invalid customer id
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    '500':
+      description: Failed to get customer or failed to mark customer deleted
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'

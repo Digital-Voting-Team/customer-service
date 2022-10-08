@@ -1,0 +1,96 @@
+post:
+  tags:
+    - Customer
+  summary: Create customer
+  operationId: createCustomer
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - data
+          properties:
+            data:
+              type: object
+              $ref: '#/components/schemas/Customer'
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: '#/components/schemas/Customer'
+    '401':
+      description: Customer creation is not allowed
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    '500':
+      description: Failed to process request
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+
+
+get:
+  tags:
+    - Customer
+  summary: Get customer list
+  operationId: getCustomerList
+  parameters:
+    - $ref: '#/components/parameters/pageNumberParam'
+    - $ref: '#/components/parameters/pageLimitParam'
+    - $ref: '#/components/parameters/sortingParam'
+    - name: 'filter[start]'
+      in: query
+      required: false
+      schema:
+        type: string
+        format: time.Time
+    - name: 'filter[end]'
+      in: query
+      required: false
+      schema:
+        type: string
+        format: time.Time
+    - name: 'include'
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+          - persons
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+              included:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Person'
+              links:
+                type: object
+                description: "Provides links for pagination"
+                properties:
+                  next:
+                    type: string
+                    description: "link to the next page"
+                  self:
+                    type: string
+                    description: "link to the current page"
+

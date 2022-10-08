@@ -1,0 +1,28 @@
+allOf:
+  - $ref: '#/components/schemas/AddressKey'
+  - type: object
+    required:
+      - attributes
+    properties:
+      attributes:
+        type: object
+        required:
+          - building_number
+          - street
+          - city
+          - district
+          - region
+          - postal_code
+        properties:
+          building_number:
+            type: int64
+          street:
+            type: string
+          city:
+            type: string
+          district:
+            type: string
+          region:
+            type: string
+          postal_code:
+            type: int64

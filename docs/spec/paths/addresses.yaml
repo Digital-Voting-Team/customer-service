@@ -1,0 +1,103 @@
+post:
+  tags:
+    - Address
+  summary: Create address
+  operationId: createAddress
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - data
+          properties:
+            data:
+              type: object
+              $ref: '#/components/schemas/Address'
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: '#/components/schemas/Address'
+    '401':
+      description: Address creation is not allowed
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    '500':
+      description: Failed to process request
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+
+
+get:
+  tags:
+    - Address
+  summary: Get address list
+  operationId: getAddressList
+  parameters:
+    - $ref: '#/components/parameters/pageNumberParam'
+    - $ref: '#/components/parameters/pageLimitParam'
+    - $ref: '#/components/parameters/sortingParam'
+    - name: 'filter[building_number]'
+      in: query
+      required: false
+      schema:
+        type: int64
+    - name: 'filter[street]'
+      in: query
+      required: false
+      schema:
+        type: string
+    - name: 'filter[city]'
+      in: query
+      required: false
+      schema:
+        type: string
+    - name: 'filter[district]'
+      in: query
+      required: false
+      schema:
+        type: string
+    - name: 'filter[region]'
+      in: query
+      required: false
+      schema:
+        type: string
+    - name: 'filter[postal_code]'
+      in: query
+      required: false
+      schema:
+        type: int64
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Address'
+              links:
+                type: object
+                description: "Provides links for pagination"
+                properties:
+                  next:
+                    type: string
+                    description: "link to the next page"
+                  self:
+                    type: string
+                    description: "link to the current page"
+

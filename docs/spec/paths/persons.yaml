@@ -1,0 +1,99 @@
+post:
+  tags:
+    - Person
+  summary: Create person
+  operationId: createPerson
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - data
+          properties:
+            data:
+              type: object
+              $ref: '#/components/schemas/Person'
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: '#/components/schemas/Person'
+    '401':
+      description: Person creation is not allowed
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    '500':
+      description: Failed to process request
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+
+
+get:
+  tags:
+    - Person
+  summary: Get person list
+  operationId: getPersonList
+  parameters:
+    - $ref: '#/components/parameters/pageNumberParam'
+    - $ref: '#/components/parameters/pageLimitParam'
+    - $ref: '#/components/parameters/sortingParam'
+    - name: 'filter[name]'
+      in: query
+      required: false
+      schema:
+        type: string
+    - name: 'filter[phone]'
+      in: query
+      required: false
+      schema:
+        type: string
+    - name: 'filter[email]'
+      in: query
+      required: false
+      schema:
+        type: string
+    - name: 'include'
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+          - addresses
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Person'
+              included:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Address'
+              links:
+                type: object
+                description: "Provides links for pagination"
+                properties:
+                  next:
+                    type: string
+                    description: "link to the next page"
+                  self:
+                    type: string
+                    description: "link to the current page"
+

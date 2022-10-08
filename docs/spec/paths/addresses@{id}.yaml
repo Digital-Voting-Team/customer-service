@@ -1,0 +1,97 @@
+parameters:
+  - name: id
+    in: path
+    description: 'Address identifier'
+    required: true
+    schema:
+      type: int64
+
+get:
+  tags:
+    - Address
+  summary: Get Address
+  description: 'Get address by id'
+  operationId: getAddress
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: '#/components/schemas/Address'
+    '400':
+      description: Invalid request
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    '404':
+      description: Address not found
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    '500':
+      description: Failed to get address
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+
+put:
+  tags:
+    - Address
+  summary: Update Address
+  description: 'Update address by id'
+  operationId: updateAddress
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              type: object
+              $ref: '#/components/schemas/Address'
+  responses:
+    '200':
+      description: Address updated
+    '404':
+      description: Invalid address id
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    '500':
+      description: Failed to get address or failed to mark address deleted
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+
+
+delete:
+  tags:
+    - Address
+  summary: Delete Address
+  description: 'Delete address by id'
+  operationId: deleteAddress
+  responses:
+    '204':
+      description: Address deleted
+    '404':
+      description: Invalid address id
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    '500':
+      description: Failed to get address or failed to mark address deleted
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'

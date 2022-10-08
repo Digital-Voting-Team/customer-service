@@ -1,0 +1,97 @@
+parameters:
+  - name: id
+    in: path
+    description: 'Person identifier'
+    required: true
+    schema:
+      type: int64
+
+get:
+  tags:
+    - Person
+  summary: Get Person
+  description: 'Get person by id'
+  operationId: getPerson
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: '#/components/schemas/Person'
+    '400':
+      description: Invalid request
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    '404':
+      description: Person not found
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    '500':
+      description: Failed to get person
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+
+put:
+  tags:
+    - Person
+  summary: Update Person
+  description: 'Update person by id'
+  operationId: updatePerson
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              type: object
+              $ref: '#/components/schemas/Person'
+  responses:
+    '200':
+      description: Person updated
+    '404':
+      description: Invalid person id
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    '500':
+      description: Failed to get person or failed to mark person deleted
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+
+
+delete:
+  tags:
+    - Person
+  summary: Delete Person
+  description: 'Delete person by id'
+  operationId: deletePerson
+  responses:
+    '204':
+      description: Person deleted
+    '404':
+      description: Invalid person id
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    '500':
+      description: Failed to get person or failed to mark person deleted
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
