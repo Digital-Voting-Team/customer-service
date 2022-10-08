@@ -44,8 +44,8 @@ ALTER TABLE IF EXISTS public.person
     OWNER to postgres;
 
 INSERT INTO public.person(
-    name, phone, email)
-VALUES ('Derek', '+380435815532', 'your.funny.email@lol.tik');
+    name, phone, email, address_id)
+VALUES ('Derek', '+380435815532', 'your.funny.email@lol.tik', 1);
 
 -- Table: public.customer
 

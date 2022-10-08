@@ -25,8 +25,7 @@ func NewCreateAddressRequest(r *http.Request) (CreateAddressRequest, error) {
 
 func (r *CreateAddressRequest) validate() error {
 	return mergeErrors(validation.Errors{
-		"/data/attributes/building_number": validation.Validate(&r.Data.Attributes.BuildingNumber, validation.Required,
-			validation.Length(1, 10)),
+		"/data/attributes/building_number": validation.Validate(&r.Data.Attributes.BuildingNumber, validation.Required),
 		"/data/attributes/street": validation.Validate(&r.Data.Attributes.Street, validation.Required,
 			validation.Length(3, 45)),
 		"/data/attributes/city": validation.Validate(&r.Data.Attributes.City, validation.Required,
@@ -35,8 +34,7 @@ func (r *CreateAddressRequest) validate() error {
 			validation.Length(3, 45)),
 		"/data/attributes/region": validation.Validate(&r.Data.Attributes.Region, validation.Required,
 			validation.Length(3, 45)),
-		"/data/attributes/postal_code": validation.Validate(&r.Data.Attributes.PostalCode, validation.Required,
-			validation.Length(1, 10)),
+		"/data/attributes/postal_code": validation.Validate(&r.Data.Attributes.PostalCode, validation.Required),
 	}).Filter()
 }
 
