@@ -2,6 +2,10 @@ package service
 
 import (
 	"customer-service/internal/data/pg"
+	address "customer-service/internal/service/handlers/address"
+	customer "customer-service/internal/service/handlers/customer"
+	person "customer-service/internal/service/handlers/person"
+
 	"customer-service/internal/service/helpers"
 
 	"github.com/go-chi/chi"
@@ -25,7 +29,33 @@ func (s *service) router() chi.Router {
 		),
 	)
 	r.Route("/integrations/customer-service", func(r chi.Router) {
-		// configure endpoints here
+		r.Route("/addresses", func(r chi.Router) {
+			r.Post("/", address.CreateAddress)
+			r.Get("/", address.GetAddressList)
+			r.Route("/{id}", func(r chi.Router) {
+				r.Get("/", address.GetAddress)
+				r.Put("/", address.UpdateAddress)
+				r.Delete("/", address.DeleteAddress)
+			})
+		})
+		r.Route("/persons", func(r chi.Router) {
+			r.Post("/", person.CreatePerson)
+			r.Get("/", person.GetPersonList)
+			r.Route("/{id}", func(r chi.Router) {
+				r.Get("/", person.GetPerson)
+				r.Put("/", person.UpdatePerson)
+				r.Delete("/", person.DeletePerson)
+			})
+		})
+		r.Route("/customers", func(r chi.Router) {
+			r.Post("/", customer.CreateCustomer)
+			r.Get("/", customer.GetCustomerList)
+			r.Route("/{id}", func(r chi.Router) {
+				r.Get("/", customer.GetCustomer)
+				r.Put("/", customer.UpdateCustomer)
+				r.Delete("/", customer.DeleteCustomer)
+			})
+		})
 	})
 
 	return r
