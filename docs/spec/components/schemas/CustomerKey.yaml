@@ -4,7 +4,7 @@ required:
   - type
 properties:
   id:
-    type: uint64
+    type: int64
   type:
     type: string
     enum:
