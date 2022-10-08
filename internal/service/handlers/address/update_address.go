@@ -25,8 +25,6 @@ func UpdateAddress(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var resultAddress data.Address
-
 	newAddress := data.Address{
 		BuildingNumber: request.Data.Attributes.BuildingNumber,
 		Street:         request.Data.Attributes.Street,
@@ -36,9 +34,10 @@ func UpdateAddress(w http.ResponseWriter, r *http.Request) {
 		PostalCode:     request.Data.Attributes.PostalCode,
 	}
 
+	var resultAddress data.Address
 	resultAddress, err = helpers.AddressesQ(r).Update(newAddress)
 	if err != nil {
-		helpers.Log(r).WithError(err).Error("failed to delete address")
+		helpers.Log(r).WithError(err).Error("failed to update address")
 		ape.RenderErr(w, problems.InternalError())
 		return
 	}
