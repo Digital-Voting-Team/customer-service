@@ -11,7 +11,7 @@ type PersonsQ interface {
 	Transaction(fn func(q PersonsQ) error) error
 
 	Insert(person Person) (Person, error)
-	Update(person Person) ([]Person, error)
+	Update(person Person) (Person, error)
 	Delete(id int64) error
 
 	Page(pageParams pgdb.OffsetPageParams) PersonsQ
@@ -29,5 +29,5 @@ type Person struct {
 	Name      string `db:"name" structs:"name"`
 	Phone     string `db:"phone" structs:"phone"`
 	Email     string `db:"email" structs:"email"`
-	AddressID string `db:"address_id" structs:"address_id"`
+	AddressID int64  `db:"address_id" structs:"address_id"`
 }

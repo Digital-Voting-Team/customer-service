@@ -45,15 +45,15 @@ func (p *personsQ) Select() ([]data.Person, error) {
 	return result, err
 }
 
-func (p *personsQ) Update(person data.Person) ([]data.Person, error) {
-	var result []data.Person
+func (p *personsQ) Update(person data.Person) (data.Person, error) {
+	var result data.Person
 	clauses := structs.Map(person)
 	clauses["name"] = person.Name
 	clauses["phone"] = person.Phone
 	clauses["email"] = person.Email
 	clauses["address_id"] = person.AddressID
 
-	err := p.db.Select(&result, p.sqlUpdate.SetMap(clauses))
+	err := p.db.Get(&result, p.sqlUpdate.SetMap(clauses))
 	return result, err
 }
 
