@@ -60,7 +60,8 @@ func newCustomerList(customers []data.Customer) []resources.Customer {
 			Relationships: resources.CustomerRelationships{
 				Person: resources.Relation{
 					Data: &resources.Key{
-						ID: strconv.FormatInt(customer.PersonID, 10),
+						ID:   strconv.FormatInt(customer.PersonID, 10),
+						Type: resources.PERSON,
 					},
 				},
 			},
@@ -97,7 +98,8 @@ func newPersonModel(person data.Person) resources.Person {
 		Relationships: resources.PersonRelationships{
 			Address: resources.Relation{
 				Data: &resources.Key{
-					ID: strconv.FormatInt(person.AddressID, 10),
+					ID:   strconv.FormatInt(person.AddressID, 10),
+					Type: resources.ADDRESS,
 				},
 			},
 		},

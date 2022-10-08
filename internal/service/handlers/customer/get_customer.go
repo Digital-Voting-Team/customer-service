@@ -48,7 +48,8 @@ func GetCustomer(w http.ResponseWriter, r *http.Request) {
 		Relationships: resources.PersonRelationships{
 			Address: resources.Relation{
 				Data: &resources.Key{
-					ID: strconv.FormatInt(relatePerson.AddressID, 10),
+					ID:   strconv.FormatInt(relatePerson.AddressID, 10),
+					Type: resources.ADDRESS,
 				},
 			},
 		},
@@ -63,7 +64,8 @@ func GetCustomer(w http.ResponseWriter, r *http.Request) {
 			Relationships: resources.CustomerRelationships{
 				Person: resources.Relation{
 					Data: &resources.Key{
-						ID: strconv.FormatInt(resultCustomer.PersonID, 10),
+						ID:   strconv.FormatInt(resultCustomer.PersonID, 10),
+						Type: resources.PERSON,
 					},
 				},
 			},

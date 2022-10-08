@@ -61,7 +61,8 @@ func GetPerson(w http.ResponseWriter, r *http.Request) {
 			Relationships: resources.PersonRelationships{
 				Address: resources.Relation{
 					Data: &resources.Key{
-						ID: strconv.FormatInt(resultPerson.AddressID, 10),
+						ID:   strconv.FormatInt(resultPerson.AddressID, 10),
+						Type: resources.ADDRESS,
 					},
 				},
 			},

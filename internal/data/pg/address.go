@@ -14,7 +14,7 @@ const addressesTableName = "public.address"
 func NewAddressesQ(db *pgdb.DB) data.AddressesQ {
 	return &addressesQ{
 		db:        db.Clone(),
-		sql:       sq.Select("addresses.*").From(addressesTableName),
+		sql:       sq.Select("address.*").From(addressesTableName),
 		sqlUpdate: sq.Update(addressesTableName).Suffix("returning *"),
 	}
 }

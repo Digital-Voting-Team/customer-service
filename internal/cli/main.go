@@ -40,6 +40,7 @@ func Run(args []string) bool {
 
 	switch cmd {
 	case serviceCmd.FullCommand():
+		_ = MigrateUp(cfg)
 		service.Run(cfg)
 	case migrateUpCmd.FullCommand():
 		err = MigrateUp(cfg)

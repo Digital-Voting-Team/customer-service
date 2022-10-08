@@ -66,7 +66,8 @@ func newPersonsList(persons []data.Person) []resources.Person {
 			Relationships: resources.PersonRelationships{
 				Address: resources.Relation{
 					Data: &resources.Key{
-						ID: strconv.FormatInt(person.AddressID, 10),
+						ID:   strconv.FormatInt(person.AddressID, 10),
+						Type: resources.ADDRESS,
 					},
 				},
 			},
