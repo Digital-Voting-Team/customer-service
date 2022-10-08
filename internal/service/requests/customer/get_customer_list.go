@@ -2,20 +2,20 @@ package requests
 
 import (
 	"net/http"
+	"time"
 
 	"gitlab.com/distributed_lab/kit/pgdb"
 	"gitlab.com/distributed_lab/urlval"
 )
 
-type GetPersonListRequest struct {
+type GetCustomerListRequest struct {
 	pgdb.OffsetPageParams
-	FilterName   []string `filter:"name"`
-	FilterPhone  []string `filter:"phone"`
-	FilterEmails []string `filter:"emails"`
+	FilterDateAfter  *time.Time `filter:"date_after"`
+	FilterDateBefore *time.Time `filter:"date_before"`
 }
 
-func NewGetPersonListRequest(r *http.Request) (GetPersonListRequest, error) {
-	var request GetPersonListRequest
+func NewGetCustomerListRequest(r *http.Request) (GetCustomerListRequest, error) {
+	var request GetCustomerListRequest
 
 	err := urlval.Decode(r.URL.Query(), &request)
 	if err != nil {

@@ -12,20 +12,20 @@ import (
 	"gitlab.com/distributed_lab/urlval"
 )
 
-type UpdatePersonRequest struct {
-	PersonID int64 `url:"-" json:"-"`
-	Data     resources.Person
+type UpdateCustomerRequest struct {
+	CustomerID int64 `url:"-" json:"-"`
+	Data       resources.Customer
 }
 
-func NewUpdatePersonRequest(r *http.Request) (UpdatePersonRequest, error) {
-	request := UpdatePersonRequest{}
+func NewUpdateCustomerRequest(r *http.Request) (UpdateCustomerRequest, error) {
+	request := UpdateCustomerRequest{}
 
 	err := urlval.Decode(r.URL.Query(), &request)
 	if err != nil {
 		return request, err
 	}
 
-	request.PersonID = cast.ToInt64(chi.URLParam(r, "id"))
+	request.CustomerID = cast.ToInt64(chi.URLParam(r, "id"))
 
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
 		return request, errors.Wrap(err, "failed to unmarshal")
@@ -34,14 +34,10 @@ func NewUpdatePersonRequest(r *http.Request) (UpdatePersonRequest, error) {
 	return request, request.validate()
 }
 
-func (r *UpdatePersonRequest) validate() error {
+func (r *UpdateCustomerRequest) validate() error {
 	return mergeErrors(validation.Errors{
-		"/data/attributes/name": validation.Validate(&r.Data.Attributes.Name, validation.Required,
+		"/data/attributes/created_at": validation.Validate(&r.Data.Attributes.CreatedAt, validation.Required,
 			validation.Length(3, 45)),
-		"/data/attributes/phone": validation.Validate(&r.Data.Attributes.Phone, validation.Required,
-			validation.Length(3, 30)),
-		"/data/attributes/email": validation.Validate(&r.Data.Attributes.Email, validation.Required,
-			validation.Length(3, 45)),
-		"/data/attributes/address_id": validation.Validate(&r.Data.Attributes.Email, validation.Required),
+		"/data/attributes/person_id": validation.Validate(&r.Data.Relationships.Person.Data.ID, validation.Required),
 	}).Filter()
 }

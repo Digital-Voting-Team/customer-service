@@ -8,19 +8,19 @@ import (
 	"gitlab.com/distributed_lab/urlval"
 )
 
-type DeletePersonRequest struct {
-	PersonID int64 `url:"-"`
+type DeleteCustomerRequest struct {
+	CustomerID int64 `url:"-"`
 }
 
-func NewDeletePersonRequest(r *http.Request) (DeletePersonRequest, error) {
-	request := DeletePersonRequest{}
+func NewDeleteCustomerRequest(r *http.Request) (DeleteCustomerRequest, error) {
+	request := DeleteCustomerRequest{}
 
 	err := urlval.Decode(r.URL.Query(), &request)
 	if err != nil {
 		return request, err
 	}
 
-	request.PersonID = cast.ToInt64(chi.URLParam(r, "id"))
+	request.CustomerID = cast.ToInt64(chi.URLParam(r, "id"))
 
 	return request, nil
 }
