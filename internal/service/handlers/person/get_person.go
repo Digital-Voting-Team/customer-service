@@ -21,7 +21,7 @@ func GetPerson(w http.ResponseWriter, r *http.Request) {
 
 	resultPerson, err := helpers.PersonsQ(r).FilterByID(request.PersonID).Get()
 	if err != nil {
-		helpers.Log(r).WithError(err).Error("failed to get resultPerson from DB")
+		helpers.Log(r).WithError(err).Error("failed to get person from DB")
 		ape.Render(w, problems.InternalError())
 		return
 	}
@@ -52,7 +52,7 @@ func GetPerson(w http.ResponseWriter, r *http.Request) {
 
 	result := resources.PersonResponse{
 		Data: resources.Person{
-			Key: resources.NewKeyInt64(resultPerson.ID, resources.ADDRESS),
+			Key: resources.NewKeyInt64(resultPerson.ID, resources.PERSON),
 			Attributes: resources.PersonAttributes{
 				Name:  resultPerson.Name,
 				Phone: resultPerson.Phone,

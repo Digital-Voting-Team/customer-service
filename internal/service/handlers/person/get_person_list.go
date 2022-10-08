@@ -12,7 +12,7 @@ import (
 	"gitlab.com/distributed_lab/ape/problems"
 )
 
-func GetPersonsList(w http.ResponseWriter, r *http.Request) {
+func GetPersonList(w http.ResponseWriter, r *http.Request) {
 	request, err := requests.NewGetPersonListRequest(r)
 	if err != nil {
 		ape.RenderErr(w, problems.BadRequest(err)...)
@@ -57,7 +57,7 @@ func newPersonsList(persons []data.Person) []resources.Person {
 	result := make([]resources.Person, len(persons))
 	for i, person := range persons {
 		result[i] = resources.Person{
-			Key: resources.NewKeyInt64(person.ID, resources.ADDRESS),
+			Key: resources.NewKeyInt64(person.ID, resources.PERSON),
 			Attributes: resources.PersonAttributes{
 				Name:  person.Name,
 				Phone: person.Phone,

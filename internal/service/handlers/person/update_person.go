@@ -64,7 +64,7 @@ func UpdatePerson(w http.ResponseWriter, r *http.Request) {
 
 	result := resources.PersonResponse{
 		Data: resources.Person{
-			Key: resources.NewKeyInt64(resultPerson.ID, resources.ADDRESS),
+			Key: resources.NewKeyInt64(resultPerson.ID, resources.PERSON),
 			Attributes: resources.PersonAttributes{
 				Name:  resultPerson.Name,
 				Phone: resultPerson.Phone,

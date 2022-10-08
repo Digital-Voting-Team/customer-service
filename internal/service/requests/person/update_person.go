@@ -42,6 +42,6 @@ func (r *UpdatePersonRequest) validate() error {
 			validation.Length(3, 30)),
 		"/data/attributes/email": validation.Validate(&r.Data.Attributes.Email, validation.Required,
 			validation.Length(3, 45)),
-		"/data/attributes/address_id": validation.Validate(&r.Data.Attributes.Email, validation.Required),
+		"/data/attributes/address_id": validation.Validate(&r.Data.Relationships.Address.Data.ID, validation.Required),
 	}).Filter()
 }
