@@ -64,13 +64,13 @@ func (c *customersQ) Insert(customer data.Customer) (data.Customer, error) {
 	return result, err
 }
 
-func (c *customersQ) Update(customer data.Customer) ([]data.Customer, error) {
-	var result []data.Customer
+func (c *customersQ) Update(customer data.Customer) (data.Customer, error) {
+	var result data.Customer
 	clauses := structs.Map(customer)
 	clauses["person_id"] = customer.PersonID
 	clauses["created_at"] = customer.CreatedAt
 
-	err := c.db.Select(&result, c.sqlUpdate.SetMap(clauses))
+	err := c.db.Get(&result, c.sqlUpdate.SetMap(clauses))
 	return result, err
 }
 

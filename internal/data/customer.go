@@ -14,7 +14,7 @@ type CustomersQ interface {
 	Transaction(fn func(q CustomersQ) error) error
 
 	Insert(customer Customer) (Customer, error)
-	Update(customer Customer) ([]Customer, error)
+	Update(customer Customer) (Customer, error)
 	Delete(id int64) error
 
 	Page(pageParams pgdb.OffsetPageParams) CustomersQ
@@ -28,6 +28,6 @@ type CustomersQ interface {
 
 type Customer struct {
 	ID        int64      `db:"id" structs:"-"`
-	PersonID  string     `db:"person_id" structs:"person_id"`
+	PersonID  int64      `db:"person_id" structs:"person_id"`
 	CreatedAt *time.Time `db:"created_at" structs:"created_at"`
 }
