@@ -40,7 +40,7 @@ func UpdateCustomer(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var resultCustomer data.Customer
-	resultCustomer, err = helpers.CustomersQ(r).Update(newCustomer)
+	resultCustomer, err = helpers.CustomersQ(r).FilterByID(customer.ID).Update(newCustomer)
 	if err != nil {
 		helpers.Log(r).WithError(err).Error("failed to update customer")
 		ape.RenderErr(w, problems.InternalError())

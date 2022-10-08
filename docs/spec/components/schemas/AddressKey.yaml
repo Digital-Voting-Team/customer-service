@@ -4,7 +4,8 @@ required:
   - type
 properties:
   id:
-    type: int64
+    type: string
+    example: "1"
   type:
     type: string
     enum:

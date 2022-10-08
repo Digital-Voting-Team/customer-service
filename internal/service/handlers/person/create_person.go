@@ -21,6 +21,7 @@ func CreatePerson(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// TODO: parse error from int casting (repeat the same with other structs)
 	person := data.Person{
 		Name:      request.Data.Attributes.Name,
 		Phone:     request.Data.Attributes.Phone,

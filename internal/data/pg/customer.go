@@ -87,6 +87,7 @@ func (c *customersQ) Page(pageParams pgdb.OffsetPageParams) data.CustomersQ {
 
 func (c *customersQ) FilterByID(ids ...int64) data.CustomersQ {
 	c.sql = c.sql.Where(sq.Eq{"id": ids})
+	c.sqlUpdate = c.sqlUpdate.Where(sq.Eq{"id": ids})
 	return c
 }
 

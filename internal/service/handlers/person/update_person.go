@@ -42,7 +42,7 @@ func UpdatePerson(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var resultPerson data.Person
-	resultPerson, err = helpers.PersonsQ(r).Update(newPerson)
+	resultPerson, err = helpers.PersonsQ(r).FilterByID(person.ID).Update(newPerson)
 	if err != nil {
 		helpers.Log(r).WithError(err).Error("failed to update person")
 		ape.RenderErr(w, problems.InternalError())

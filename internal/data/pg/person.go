@@ -90,6 +90,7 @@ func (p *personsQ) Page(pageParams pgdb.OffsetPageParams) data.PersonsQ {
 
 func (p *personsQ) FilterByID(ids ...int64) data.PersonsQ {
 	p.sql = p.sql.Where(sq.Eq{"id": ids})
+	p.sqlUpdate = p.sqlUpdate.Where(sq.Eq{"id": ids})
 	return p
 }
 
