@@ -4,8 +4,11 @@
 
 package resources
 
+import "time"
+
 type PersonAttributes struct {
-	Email string `json:"email"`
-	Name  string `json:"name"`
-	Phone string `json:"phone"`
+	Birthday *time.Time `json:"birthday,omitempty"`
+	Email    string     `json:"email"`
+	Name     string     `json:"name"`
+	Phone    string     `json:"phone"`
 }

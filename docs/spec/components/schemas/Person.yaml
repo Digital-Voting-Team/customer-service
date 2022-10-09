@@ -30,3 +30,7 @@ allOf:
             type: string
           email:
             type: string
+          birthday:
+            type: string
+            format: time.Time
+            example: "2006-01-02T15:00:00Z"

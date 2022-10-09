@@ -7,6 +7,7 @@ import (
 	sq "github.com/Masterminds/squirrel"
 	"github.com/fatih/structs"
 	"gitlab.com/distributed_lab/kit/pgdb"
+	"time"
 )
 
 const personsTableName = "public.person"
@@ -106,6 +107,11 @@ func (p *personsQ) FilterByPhones(phones ...string) data.PersonsQ {
 
 func (p *personsQ) FilterByEmails(emails ...string) data.PersonsQ {
 	p.sql = p.sql.Where(sq.Eq{"email": emails})
+	return p
+}
+
+func (p *personsQ) FilterByBirthday(date time.Time) data.PersonsQ {
+	p.sql = p.sql.Where(sq.Eq{"birthday": date})
 	return p
 }
 

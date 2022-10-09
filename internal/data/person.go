@@ -1,6 +1,9 @@
 package data
 
-import "gitlab.com/distributed_lab/kit/pgdb"
+import (
+	"gitlab.com/distributed_lab/kit/pgdb"
+	"time"
+)
 
 type PersonsQ interface {
 	New() PersonsQ
@@ -20,14 +23,16 @@ type PersonsQ interface {
 	FilterByNames(names ...string) PersonsQ
 	FilterByPhones(phones ...string) PersonsQ
 	FilterByEmails(emails ...string) PersonsQ
+	FilterByBirthday(date time.Time) PersonsQ
 
 	JoinAddress() PersonsQ
 }
 
 type Person struct {
-	ID        int64  `db:"id" structs:"-"`
-	Name      string `db:"name" structs:"name"`
-	Phone     string `db:"phone" structs:"phone"`
-	Email     string `db:"email" structs:"email"`
-	AddressID int64  `db:"address_id" structs:"address_id"`
+	ID        int64      `db:"id" structs:"-"`
+	Name      string     `db:"name" structs:"name"`
+	Phone     string     `db:"phone" structs:"phone"`
+	Email     string     `db:"email" structs:"email"`
+	Birthday  *time.Time `db:"birthday" structs:"birthday"`
+	AddressID int64      `db:"address_id" structs:"address_id"`
 }

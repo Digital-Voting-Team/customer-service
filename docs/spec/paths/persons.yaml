@@ -63,6 +63,12 @@ get:
       required: false
       schema:
         type: string
+    - name: 'filter[birthday]'
+      in: query
+      required: false
+      schema:
+        type: string
+        format: time.Time
     - name: 'include'
       in: query
       required: false

@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS public.person
     name character varying(45),
     phone character varying(30),
     email character varying(45),
+    birthday timestamp,
     address_id integer,
     CONSTRAINT person_id PRIMARY KEY (id),
     CONSTRAINT address_id FOREIGN KEY (address_id)

@@ -7,6 +7,12 @@ import (
 )
 
 func IsInteger(value interface{}) error {
+	if integer, ok := value.(*int64); ok {
+		if *integer >= 0 {
+			return nil
+		}
+	}
+
 	if v, ok := value.(*string); ok {
 		if integer, err := strconv.Atoi(*v); err == nil {
 			if integer >= 0 {

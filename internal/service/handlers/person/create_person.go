@@ -21,11 +21,11 @@ func CreatePerson(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// TODO: parse error from int casting (repeat the same with other structs)
 	person := data.Person{
 		Name:      request.Data.Attributes.Name,
 		Phone:     request.Data.Attributes.Phone,
 		Email:     request.Data.Attributes.Email,
+		Birthday:  request.Data.Attributes.Birthday,
 		AddressID: cast.ToInt64(request.Data.Relationships.Address.Data.ID),
 	}
 
@@ -61,9 +61,10 @@ func CreatePerson(w http.ResponseWriter, r *http.Request) {
 		Data: resources.Person{
 			Key: resources.NewKeyInt64(resultPerson.ID, resources.PERSON),
 			Attributes: resources.PersonAttributes{
-				Name:  resultPerson.Name,
-				Phone: resultPerson.Phone,
-				Email: resultPerson.Email,
+				Name:     resultPerson.Name,
+				Phone:    resultPerson.Phone,
+				Email:    resultPerson.Email,
+				Birthday: resultPerson.Birthday,
 			},
 			Relationships: resources.PersonRelationships{
 				Address: resources.Relation{

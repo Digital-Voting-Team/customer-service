@@ -91,9 +91,10 @@ func newPersonModel(person data.Person) resources.Person {
 	return resources.Person{
 		Key: resources.NewKeyInt64(person.ID, resources.PERSON),
 		Attributes: resources.PersonAttributes{
-			Name:  person.Name,
-			Phone: person.Phone,
-			Email: person.Email,
+			Name:     person.Name,
+			Phone:    person.Phone,
+			Email:    person.Email,
+			Birthday: person.Birthday,
 		},
 		Relationships: resources.PersonRelationships{
 			Address: resources.Relation{

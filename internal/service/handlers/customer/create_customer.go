@@ -45,9 +45,10 @@ func CreateCustomer(w http.ResponseWriter, r *http.Request) {
 	includes.Add(&resources.Person{
 		Key: resources.NewKeyInt64(relatePerson.ID, resources.PERSON),
 		Attributes: resources.PersonAttributes{
-			Name:  relatePerson.Name,
-			Phone: relatePerson.Phone,
-			Email: relatePerson.Email,
+			Name:     relatePerson.Name,
+			Phone:    relatePerson.Phone,
+			Email:    relatePerson.Email,
+			Birthday: relatePerson.Birthday,
 		},
 		Relationships: resources.PersonRelationships{
 			Address: resources.Relation{
