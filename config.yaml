@@ -3,7 +3,7 @@ log:
   level: "info"
 
 db:
-  url: "postgres://postgres:postgres@localhost:5432/postgres?sslmode=disable"
+  url: "postgres://postgres:postgres@db/postgres?sslmode=disable"
 
 listener:
   addr: :9101
