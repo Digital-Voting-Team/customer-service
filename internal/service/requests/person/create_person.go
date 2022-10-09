@@ -1,6 +1,7 @@
 package requests
 
 import (
+	"customer-service/internal/service/helpers"
 	"customer-service/resources"
 	"encoding/json"
 	"net/http"
@@ -31,7 +32,8 @@ func (r *CreatePersonRequest) validate() error {
 			validation.Length(3, 30)),
 		"/data/attributes/email": validation.Validate(&r.Data.Attributes.Email, validation.Required,
 			validation.Length(3, 45)),
-		"/data/attributes/address_id": validation.Validate(&r.Data.Relationships.Address.Data.ID, validation.Required),
+		"/data/relationships/address/data/id": validation.Validate(&r.Data.Relationships.Address.Data.ID,
+			validation.Required, validation.By(helpers.IsInteger)),
 	}).Filter()
 }
 

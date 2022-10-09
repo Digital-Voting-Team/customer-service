@@ -1,6 +1,7 @@
 package requests
 
 import (
+	"customer-service/internal/service/helpers"
 	"customer-service/resources"
 	"encoding/json"
 	validation "github.com/go-ozzo/ozzo-validation/v4"
@@ -36,8 +37,8 @@ func NewUpdateCustomerRequest(r *http.Request) (UpdateCustomerRequest, error) {
 
 func (r *UpdateCustomerRequest) validate() error {
 	return mergeErrors(validation.Errors{
-		"/data/attributes/created_at": validation.Validate(&r.Data.Attributes.CreatedAt, validation.Required,
-			validation.Length(3, 45)),
-		"/data/attributes/person_id": validation.Validate(&r.Data.Relationships.Person.Data.ID, validation.Required),
+		"/data/attributes/created_at": validation.Validate(&r.Data.Attributes.CreatedAt, validation.Required),
+		"/data/relationships/person/data/id": validation.Validate(&r.Data.Relationships.Person.Data.ID,
+			validation.Required, validation.By(helpers.IsInteger)),
 	}).Filter()
 }
