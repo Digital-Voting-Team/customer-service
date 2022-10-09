@@ -55,7 +55,7 @@ func newCustomerList(customers []data.Customer) []resources.Customer {
 		result[i] = resources.Customer{
 			Key: resources.NewKeyInt64(customer.ID, resources.CUSTOMER),
 			Attributes: resources.CustomerAttributes{
-				CreatedAt: *customer.CreatedAt,
+				RegistrationDate: *customer.RegistrationDate,
 			},
 			Relationships: resources.CustomerRelationships{
 				Person: resources.Relation{

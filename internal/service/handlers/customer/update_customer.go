@@ -28,8 +28,8 @@ func UpdateCustomer(w http.ResponseWriter, r *http.Request) {
 	}
 
 	newCustomer := data.Customer{
-		CreatedAt: &request.Data.Attributes.CreatedAt,
-		PersonID:  cast.ToInt64(request.Data.Relationships.Person.Data.ID),
+		RegistrationDate: &request.Data.Attributes.RegistrationDate,
+		PersonID:         cast.ToInt64(request.Data.Relationships.Person.Data.ID),
 	}
 
 	relatePerson, err := helpers.PersonsQ(r).FilterByID(newCustomer.PersonID).Get()
@@ -69,7 +69,7 @@ func UpdateCustomer(w http.ResponseWriter, r *http.Request) {
 		Data: resources.Customer{
 			Key: resources.NewKeyInt64(resultCustomer.ID, resources.CUSTOMER),
 			Attributes: resources.CustomerAttributes{
-				CreatedAt: *resultCustomer.CreatedAt,
+				RegistrationDate: *resultCustomer.RegistrationDate,
 			},
 			Relationships: resources.CustomerRelationships{
 				Person: resources.Relation{

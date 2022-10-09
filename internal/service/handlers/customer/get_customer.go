@@ -59,7 +59,7 @@ func GetCustomer(w http.ResponseWriter, r *http.Request) {
 		Data: resources.Customer{
 			Key: resources.NewKeyInt64(resultCustomer.ID, resources.CUSTOMER),
 			Attributes: resources.CustomerAttributes{
-				CreatedAt: *resultCustomer.CreatedAt,
+				RegistrationDate: *resultCustomer.RegistrationDate,
 			},
 			Relationships: resources.CustomerRelationships{
 				Person: resources.Relation{

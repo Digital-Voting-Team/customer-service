@@ -20,9 +20,9 @@ allOf:
       attributes:
         type: object
         required:
-          - created_at
+          - registration_date
         properties:
-          created_at:
+          registration_date:
             type: string
             format: time.Time
             example: "2006-01-02T15:00:00Z"

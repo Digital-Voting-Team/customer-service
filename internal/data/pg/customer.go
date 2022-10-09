@@ -55,7 +55,7 @@ func (c *customersQ) Transaction(fn func(q data.CustomersQ) error) error {
 func (c *customersQ) Insert(customer data.Customer) (data.Customer, error) {
 	clauses := structs.Map(customer)
 	clauses["person_id"] = customer.PersonID
-	clauses["created_at"] = customer.CreatedAt
+	clauses["registration_date"] = customer.RegistrationDate
 
 	var result data.Customer
 	stmt := sq.Insert(customersTableName).SetMap(clauses).Suffix("returning *")
@@ -68,7 +68,7 @@ func (c *customersQ) Update(customer data.Customer) (data.Customer, error) {
 	var result data.Customer
 	clauses := structs.Map(customer)
 	clauses["person_id"] = customer.PersonID
-	clauses["created_at"] = customer.CreatedAt
+	clauses["registration_date"] = customer.RegistrationDate
 
 	err := c.db.Get(&result, c.sqlUpdate.SetMap(clauses))
 	return result, err
@@ -92,7 +92,7 @@ func (c *customersQ) FilterByID(ids ...int64) data.CustomersQ {
 }
 
 func (c *customersQ) FilterByDateBefore(time time.Time) data.CustomersQ {
-	stmt := sq.LtOrEq{"customer.created_at": time}
+	stmt := sq.LtOrEq{"customer.registration_date": time}
 	c.sql = c.sql.Where(stmt)
 	// Will not work for update
 	// c.sqlUpdate = c.sqlUpdate.Where(stmt)
@@ -100,7 +100,7 @@ func (c *customersQ) FilterByDateBefore(time time.Time) data.CustomersQ {
 }
 
 func (c *customersQ) FilterByDateAfter(time time.Time) data.CustomersQ {
-	stmt := sq.GtOrEq{"customer.created_at": time}
+	stmt := sq.GtOrEq{"customer.registration_date": time}
 	c.sql = c.sql.Where(stmt)
 	// Will not work for update
 	// c.sqlUpdate = c.sqlUpdate.Where(stmt)

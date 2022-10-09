@@ -7,5 +7,5 @@ package resources
 import "time"
 
 type CustomerAttributes struct {
-	CreatedAt time.Time `json:"created_at"`
+	RegistrationDate time.Time `json:"registration_date"`
 }

@@ -25,7 +25,8 @@ func NewCreateCustomerRequest(r *http.Request) (CreateCustomerRequest, error) {
 
 func (r *CreateCustomerRequest) validate() error {
 	return mergeErrors(validation.Errors{
-		"/data/attributes/created_at": validation.Validate(&r.Data.Attributes.CreatedAt, validation.Required),
+		"/data/attributes/registration_date": validation.Validate(&r.Data.Attributes.RegistrationDate,
+			validation.Required, validation.By(helpers.IsDate)),
 		"/data/relationships/person/data/id": validation.Validate(&r.Data.Relationships.Person.Data.ID,
 			validation.Required, validation.By(helpers.IsInteger)),
 	}).Filter()
