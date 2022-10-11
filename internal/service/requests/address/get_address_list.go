@@ -14,7 +14,7 @@ type GetAddressListRequest struct {
 	FilterCity           []string `filter:"city"`
 	FilterDistrict       []string `filter:"district"`
 	FilterRegion         []string `filter:"region"`
-	FilterPostalCode     []int64  `filter:"postal_code"`
+	FilterPostalCode     []string `filter:"postal_code"`
 }
 
 func NewGetAddressListRequest(r *http.Request) (GetAddressListRequest, error) {

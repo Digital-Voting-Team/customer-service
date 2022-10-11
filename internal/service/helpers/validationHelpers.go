@@ -27,7 +27,13 @@ func IsInteger(value interface{}) error {
 }
 
 func IsDate(value interface{}) error {
+	if _, ok := value.(**time.Time); ok {
+		return nil
+	}
 	if _, ok := value.(*time.Time); ok {
+		return nil
+	}
+	if _, ok := value.(time.Time); ok {
 		return nil
 	}
 	return errors.New("value is not an valid date")
