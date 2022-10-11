@@ -37,7 +37,7 @@ func (r *CreateAddressRequest) validate() error {
 		"/data/attributes/region": validation.Validate(&r.Data.Attributes.Region, validation.Required,
 			validation.Length(3, 45)),
 		"/data/attributes/postal_code": validation.Validate(&r.Data.Attributes.PostalCode, validation.Required,
-			validation.By(helpers.IsInteger)),
+			validation.Length(1, 45)),
 	}).Filter()
 }
 

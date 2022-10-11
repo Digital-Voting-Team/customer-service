@@ -124,7 +124,7 @@ func (q *addressesQ) FilterByRegion(regions ...string) data.AddressesQ {
 	return q
 }
 
-func (q *addressesQ) FilterByPostalCodes(codes ...int64) data.AddressesQ {
+func (q *addressesQ) FilterByPostalCodes(codes ...string) data.AddressesQ {
 	q.sql = q.sql.Where(sq.Eq{"postal_code": codes})
 	return q
 }

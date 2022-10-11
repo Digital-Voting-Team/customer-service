@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS public.address
     city character varying(45),
     district character varying(45),
     region character varying(45),
-    postal_code integer,
+    postal_code character varying(45),
     CONSTRAINT address_id PRIMARY KEY (id)
 )
 
@@ -20,7 +20,7 @@ ALTER TABLE IF EXISTS public.address
 
 INSERT INTO public.address(
     building_number, street, district, city, region, postal_code)
-VALUES (1, 'polska', 'polska', 'polska', 'polska', 58000);
+VALUES (1, 'polska', 'polska', 'polska', 'polska', '58000');
 
 -- Table: public.person
 

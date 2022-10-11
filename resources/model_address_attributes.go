@@ -8,7 +8,7 @@ type AddressAttributes struct {
 	BuildingNumber int64  `json:"building_number"`
 	City           string `json:"city"`
 	District       string `json:"district"`
-	PostalCode     int64  `json:"postal_code"`
+	PostalCode     string `json:"postal_code"`
 	Region         string `json:"region"`
 	Street         string `json:"street"`
 }

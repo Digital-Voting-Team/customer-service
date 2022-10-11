@@ -77,7 +77,7 @@ get:
       in: query
       required: false
       schema:
-        type: int64
+        type: string
   responses:
     '200':
       description: Success

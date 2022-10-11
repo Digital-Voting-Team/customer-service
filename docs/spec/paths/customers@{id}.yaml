@@ -23,6 +23,9 @@ get:
               data:
                 type: object
                 $ref: '#/components/schemas/Customer'
+              included:
+                type: object
+                $ref: '#/components/schemas/Person'
     '400':
       description: Invalid request
       content:
@@ -59,7 +62,18 @@ put:
               $ref: '#/components/schemas/Customer'
   responses:
     '200':
-      description: Customer updated
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: '#/components/schemas/Customer'
+              included:
+                type: object
+                $ref: '#/components/schemas/Person'
     '404':
       description: Invalid customer id
       content:

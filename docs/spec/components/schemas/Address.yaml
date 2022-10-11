@@ -26,5 +26,5 @@ allOf:
           region:
             type: string
           postal_code:
-            type: int64
-            example: 1
+            type: string
+            example: "1"

@@ -22,7 +22,7 @@ type AddressesQ interface {
 	FilterByCities(cities ...string) AddressesQ
 	FilterByDistricts(districts ...string) AddressesQ
 	FilterByRegion(regions ...string) AddressesQ
-	FilterByPostalCodes(codes ...int64) AddressesQ
+	FilterByPostalCodes(codes ...string) AddressesQ
 }
 
 type Address struct {
@@ -32,5 +32,5 @@ type Address struct {
 	City           string `db:"city" structs:"city"`
 	District       string `db:"district" structs:"district"`
 	Region         string `db:"region" structs:"region"`
-	PostalCode     int64  `db:"postal_code" structs:"postal_code"`
+	PostalCode     string `db:"postal_code" structs:"postal_code"`
 }
