@@ -29,7 +29,7 @@ func CreateCustomer(w http.ResponseWriter, r *http.Request) {
 	relatePerson, err := helpers.PersonsQ(r).FilterByID(customer.PersonID).Get()
 	if err != nil {
 		helpers.Log(r).WithError(err).Error("failed to get person")
-		ape.RenderErr(w, problems.InternalError())
+		ape.RenderErr(w, problems.NotFound())
 		return
 	}
 

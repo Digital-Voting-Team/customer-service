@@ -33,7 +33,7 @@ func GetPerson(w http.ResponseWriter, r *http.Request) {
 	relateAddress, err := helpers.AddressesQ(r).FilterByID(resultPerson.AddressID).Get()
 	if err != nil {
 		helpers.Log(r).WithError(err).Error("failed to get address")
-		ape.RenderErr(w, problems.InternalError())
+		ape.RenderErr(w, problems.NotFound())
 		return
 	}
 

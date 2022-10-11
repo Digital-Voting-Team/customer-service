@@ -38,7 +38,7 @@ func UpdatePerson(w http.ResponseWriter, r *http.Request) {
 	relateAddress, err := helpers.AddressesQ(r).FilterByID(newPerson.AddressID).Get()
 	if err != nil {
 		helpers.Log(r).WithError(err).Error("failed to get new address")
-		ape.RenderErr(w, problems.InternalError())
+		ape.RenderErr(w, problems.NotFound())
 		return
 	}
 

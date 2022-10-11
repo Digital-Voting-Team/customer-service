@@ -35,7 +35,7 @@ func UpdateCustomer(w http.ResponseWriter, r *http.Request) {
 	relatePerson, err := helpers.PersonsQ(r).FilterByID(newCustomer.PersonID).Get()
 	if err != nil {
 		helpers.Log(r).WithError(err).Error("failed to get new person")
-		ape.RenderErr(w, problems.InternalError())
+		ape.RenderErr(w, problems.NotFound())
 		return
 	}
 
