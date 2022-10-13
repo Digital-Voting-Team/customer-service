@@ -12,7 +12,6 @@ post:
             - data
           properties:
             data:
-              type: object
               $ref: '#/components/schemas/Customer'
   responses:
     '200':
@@ -23,7 +22,6 @@ post:
             type: object
             properties:
               data:
-                type: object
                 $ref: '#/components/schemas/Customer'
     '401':
       description: Customer creation is not allowed
@@ -83,14 +81,3 @@ get:
                 type: array
                 items:
                   $ref: '#/components/schemas/Person'
-              links:
-                type: object
-                description: "Provides links for pagination"
-                properties:
-                  next:
-                    type: string
-                    description: "link to the next page"
-                  self:
-                    type: string
-                    description: "link to the current page"
-

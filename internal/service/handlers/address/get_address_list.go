@@ -1,11 +1,12 @@
 package handlers
 
 import (
+	"net/http"
+
 	"customer-service/internal/data"
 	"customer-service/internal/service/helpers"
 	requests "customer-service/internal/service/requests/address"
 	"customer-service/resources"
-	"net/http"
 
 	"gitlab.com/distributed_lab/ape"
 	"gitlab.com/distributed_lab/ape/problems"
@@ -52,6 +53,7 @@ func applyFilters(q data.AddressesQ, request requests.GetAddressListRequest) {
 	if len(request.FilterDistrict) > 0 {
 		q.FilterByDistricts(request.FilterDistrict...)
 	}
+
 	if len(request.FilterRegion) > 0 {
 		q.FilterByRegion(request.FilterRegion...)
 	}

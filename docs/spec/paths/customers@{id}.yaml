@@ -4,7 +4,8 @@ parameters:
     description: 'Customer identifier'
     required: true
     schema:
-      type: int64
+      type: string
+      format: int64
 
 get:
   tags:
@@ -21,10 +22,8 @@ get:
             type: object
             properties:
               data:
-                type: object
                 $ref: '#/components/schemas/Customer'
               included:
-                type: object
                 $ref: '#/components/schemas/Person'
     '400':
       description: Invalid request
@@ -58,7 +57,6 @@ put:
           type: object
           properties:
             data:
-              type: object
               $ref: '#/components/schemas/Customer'
   responses:
     '200':
@@ -69,10 +67,8 @@ put:
             type: object
             properties:
               data:
-                type: object
                 $ref: '#/components/schemas/Customer'
               included:
-                type: object
                 $ref: '#/components/schemas/Person'
     '404':
       description: Invalid customer id

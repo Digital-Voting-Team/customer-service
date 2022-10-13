@@ -15,7 +15,8 @@ allOf:
           - postal_code
         properties:
           building_number:
-            type: int64
+            type: string
+            format: int64
             example: 1
           street:
             type: string
