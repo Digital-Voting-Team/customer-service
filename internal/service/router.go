@@ -1,12 +1,12 @@
 package service
 
 import (
-	"customer-service/internal/data/pg"
-	address "customer-service/internal/service/handlers/address"
-	customer "customer-service/internal/service/handlers/customer"
-	person "customer-service/internal/service/handlers/person"
+	"github.com/Digital-Voting-Team/customer-service/internal/data/pg"
+	address "github.com/Digital-Voting-Team/customer-service/internal/service/handlers/address"
+	customer "github.com/Digital-Voting-Team/customer-service/internal/service/handlers/customer"
+	person "github.com/Digital-Voting-Team/customer-service/internal/service/handlers/person"
 
-	"customer-service/internal/service/helpers"
+	"github.com/Digital-Voting-Team/customer-service/internal/service/helpers"
 
 	"github.com/go-chi/chi"
 	"gitlab.com/distributed_lab/ape"
