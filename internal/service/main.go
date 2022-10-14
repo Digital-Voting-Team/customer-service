@@ -5,7 +5,7 @@ import (
 	"net"
 	"net/http"
 
-	"customer-service/internal/config"
+	"github.com/Digital-Voting-Team/customer-service/internal/config"
 
 	"gitlab.com/distributed_lab/kit/copus/types"
 	"gitlab.com/distributed_lab/logan/v3"

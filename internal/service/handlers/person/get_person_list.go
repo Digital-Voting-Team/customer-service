@@ -1,10 +1,10 @@
 package handlers
 
 import (
-	"customer-service/internal/data"
-	"customer-service/internal/service/helpers"
-	requests "customer-service/internal/service/requests/person"
-	"customer-service/resources"
+	"github.com/Digital-Voting-Team/customer-service/internal/data"
+	"github.com/Digital-Voting-Team/customer-service/internal/service/helpers"
+	requests "github.com/Digital-Voting-Team/customer-service/internal/service/requests/person"
+	"github.com/Digital-Voting-Team/customer-service/resources"
 	"net/http"
 	"strconv"
 

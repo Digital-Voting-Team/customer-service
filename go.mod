@@ -1,4 +1,4 @@
-module customer-service
+module github.com/Digital-Voting-Team/customer-service
 
 go 1.19
 

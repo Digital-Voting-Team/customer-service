@@ -1,8 +1,8 @@
 package pg
 
 import (
-	"customer-service/internal/data"
 	"database/sql"
+	"github.com/Digital-Voting-Team/customer-service/internal/data"
 	"gitlab.com/distributed_lab/kit/pgdb"
 
 	sq "github.com/Masterminds/squirrel"
