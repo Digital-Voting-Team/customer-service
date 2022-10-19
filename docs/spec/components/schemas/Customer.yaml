@@ -9,6 +9,7 @@ allOf:
         type: object
         required:
           - person
+          - user
         properties:
           person:
             type: object
@@ -17,6 +18,13 @@ allOf:
             properties:
               data:
                 $ref: '#/components/schemas/PersonKey'
+          user:
+            type: object
+            required:
+              - data
+            properties:
+              data:
+                $ref: '#/components/schemas/UserKey'
       attributes:
         type: object
         required:

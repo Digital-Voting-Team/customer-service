@@ -54,6 +54,7 @@ CREATE TABLE IF NOT EXISTS public.customer
 (
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     person_id integer NOT NULL,
+    user_id integer,
     registration_date timestamp NOT NULL ,
     CONSTRAINT customer_id PRIMARY KEY (id),
     CONSTRAINT person_id FOREIGN KEY (person_id)
@@ -68,8 +69,8 @@ ALTER TABLE IF EXISTS public.customer
     OWNER to postgres;
 
 INSERT INTO public.customer(
-    person_id, registration_date)
-VALUES (1, '1996-12-02');
+    person_id, registration_date, user_id)
+VALUES (1, '1996-12-02', 1);
 
 
 -- +migrate Down
