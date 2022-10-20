@@ -5,6 +5,7 @@ import (
 	address "github.com/Digital-Voting-Team/customer-service/internal/service/handlers/address"
 	customer "github.com/Digital-Voting-Team/customer-service/internal/service/handlers/customer"
 	person "github.com/Digital-Voting-Team/customer-service/internal/service/handlers/person"
+	"github.com/Digital-Voting-Team/customer-service/internal/service/middleware"
 
 	"github.com/Digital-Voting-Team/customer-service/internal/service/helpers"
 
@@ -27,6 +28,7 @@ func (s *service) router() chi.Router {
 			helpers.CtxPersonsQ(pg.NewPersonsQ(s.db)),
 			helpers.CtxCustomersQ(pg.NewCustomersQ(s.db)),
 		),
+		middleware.BasicAuth(),
 	)
 	r.Route("/integrations/customer-service", func(r chi.Router) {
 		r.Route("/addresses", func(r chi.Router) {

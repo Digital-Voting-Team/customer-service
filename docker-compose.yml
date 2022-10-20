@@ -10,6 +10,7 @@ services:
       - customer_db
     environment:
       - KV_VIPER_FILE=/config.yaml
+      - AUTH_SERVICE=http://127.0.0.1:9110/jwt/login
     volumes:
       - ./config.yaml:/config.yaml
     command: run service
