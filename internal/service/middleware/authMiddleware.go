@@ -3,6 +3,7 @@ package middleware
 import (
 	"context"
 	"github.com/Digital-Voting-Team/auth-serivce/endpoints"
+	"github.com/Digital-Voting-Team/customer-service/internal/service/helpers"
 	"gitlab.com/distributed_lab/ape"
 	"gitlab.com/distributed_lab/ape/problems"
 	"net/http"
@@ -17,6 +18,7 @@ func BasicAuth() func(next http.Handler) http.Handler {
 				os.Getenv("AUTH_SERVICE"),
 			)
 			if err != nil || jwtResponse.Data.ID == "" {
+				helpers.Log(r).WithError(err).Info("auth failed")
 				ape.Render(w, problems.BadRequest(err))
 				return
 			}

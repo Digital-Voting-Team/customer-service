@@ -20,10 +20,18 @@ func CreateCustomer(w http.ResponseWriter, r *http.Request) {
 		ape.RenderErr(w, problems.BadRequest(err)...)
 		return
 	}
+	//
+	//jwt := r.Context().Value("jwt").(resources_auth.JwtResponse)
+	//if request.Data.Relationships.User.Data.ID != jwt.Data.Relationships.User.Data.ID {
+	//	helpers.Log(r).WithError(err).Info("jwt user is inconsistent with request user")
+	//	ape.RenderErr(w, problems.BadRequest(err)...)
+	//	return
+	//}
 
 	customer := data.Customer{
 		RegistrationDate: &request.Data.Attributes.RegistrationDate,
 		PersonID:         cast.ToInt64(request.Data.Relationships.Person.Data.ID),
+		UserID:           cast.ToInt64(request.Data.Relationships.User.Data.ID),
 	}
 
 	relatePerson, err := helpers.PersonsQ(r).FilterByID(customer.PersonID).Get()
@@ -71,6 +79,12 @@ func CreateCustomer(w http.ResponseWriter, r *http.Request) {
 					Data: &resources.Key{
 						ID:   strconv.FormatInt(resultCustomer.PersonID, 10),
 						Type: resources.PERSON,
+					},
+				},
+				User: resources.Relation{
+					Data: &resources.Key{
+						ID:   strconv.FormatInt(resultCustomer.UserID, 10),
+						Type: resources.USER_REF,
 					},
 				},
 			},

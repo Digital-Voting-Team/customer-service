@@ -55,6 +55,7 @@ func (c *customersQ) Transaction(fn func(q data.CustomersQ) error) error {
 func (c *customersQ) Insert(customer data.Customer) (data.Customer, error) {
 	clauses := structs.Map(customer)
 	clauses["person_id"] = customer.PersonID
+	clauses["user_id"] = customer.UserID
 	clauses["registration_date"] = customer.RegistrationDate
 
 	var result data.Customer
@@ -68,6 +69,7 @@ func (c *customersQ) Update(customer data.Customer) (data.Customer, error) {
 	var result data.Customer
 	clauses := structs.Map(customer)
 	clauses["person_id"] = customer.PersonID
+	clauses["user_id"] = customer.UserID
 	clauses["registration_date"] = customer.RegistrationDate
 
 	err := c.db.Get(&result, c.sqlUpdate.SetMap(clauses))

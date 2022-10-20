@@ -29,5 +29,6 @@ type CustomersQ interface {
 type Customer struct {
 	ID               int64      `db:"id" structs:"-"`
 	PersonID         int64      `db:"person_id" structs:"person_id"`
+	UserID           int64      `db:"user_id" structs:"user_id"`
 	RegistrationDate *time.Time `db:"registration_date" structs:"registration_date"`
 }
