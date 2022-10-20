@@ -10,8 +10,8 @@ type AddressesQ interface {
 
 	Transaction(fn func(q AddressesQ) error) error
 
-	Insert(address Address) (Address, error)
-	Update(address Address) (Address, error)
+	Insert(Address) (Address, error)
+	Update(Address) (Address, error)
 	Delete(id int64) error
 
 	Page(pageParams pgdb.OffsetPageParams) AddressesQ

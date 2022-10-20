@@ -13,8 +13,8 @@ type CustomersQ interface {
 
 	Transaction(fn func(q CustomersQ) error) error
 
-	Insert(customer Customer) (Customer, error)
-	Update(customer Customer) (Customer, error)
+	Insert(Customer) (Customer, error)
+	Update(Customer) (Customer, error)
 	Delete(id int64) error
 
 	Page(pageParams pgdb.OffsetPageParams) CustomersQ

@@ -6,4 +6,5 @@ package resources
 
 type CustomerRelationships struct {
 	Person Relation `json:"person"`
+	User   Relation `json:"user"`
 }

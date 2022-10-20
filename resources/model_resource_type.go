@@ -11,4 +11,5 @@ const (
 	ADDRESS  ResourceType = "address"
 	CUSTOMER ResourceType = "customer"
 	PERSON   ResourceType = "person"
+	USER_REF ResourceType = "user_ref"
 )
