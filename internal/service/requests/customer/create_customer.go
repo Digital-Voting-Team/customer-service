@@ -24,20 +24,12 @@ func NewCreateCustomerRequest(r *http.Request) (CreateCustomerRequest, error) {
 }
 
 func (r *CreateCustomerRequest) validate() error {
-	return mergeErrors(validation.Errors{
+	return helpers.MergeErrors(validation.Errors{
 		"/data/attributes/registration_date": validation.Validate(&r.Data.Attributes.RegistrationDate,
 			validation.Required, validation.By(helpers.IsDate)),
 		"/data/relationships/person/data/id": validation.Validate(&r.Data.Relationships.Person.Data.ID,
 			validation.Required, validation.By(helpers.IsInteger)),
+		"/data/relationships/person/user/id": validation.Validate(&r.Data.Relationships.User.Data.ID,
+			validation.Required, validation.By(helpers.IsInteger)),
 	}).Filter()
-}
-
-func mergeErrors(validationErrors ...validation.Errors) validation.Errors {
-	result := make(validation.Errors)
-	for _, errs := range validationErrors {
-		for key, err := range errs {
-			result[key] = err
-		}
-	}
-	return result
 }

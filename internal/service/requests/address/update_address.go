@@ -36,7 +36,7 @@ func NewUpdateAddressRequest(r *http.Request) (UpdateAddressRequest, error) {
 }
 
 func (r *UpdateAddressRequest) validate() error {
-	return mergeErrors(validation.Errors{
+	return helpers.MergeErrors(validation.Errors{
 		"/data/attributes/building_number": validation.Validate(&r.Data.Attributes.BuildingNumber, validation.Required,
 			validation.By(helpers.IsInteger)),
 		"/data/attributes/street": validation.Validate(&r.Data.Attributes.Street, validation.Required,

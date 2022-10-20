@@ -36,7 +36,7 @@ func NewUpdatePersonRequest(r *http.Request) (UpdatePersonRequest, error) {
 }
 
 func (r *UpdatePersonRequest) validate() error {
-	return mergeErrors(validation.Errors{
+	return helpers.MergeErrors(validation.Errors{
 		"/data/attributes/name": validation.Validate(&r.Data.Attributes.Name, validation.Required,
 			validation.Length(3, 45)),
 		"/data/attributes/phone": validation.Validate(&r.Data.Attributes.Phone, validation.Required,

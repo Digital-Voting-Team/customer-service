@@ -25,7 +25,7 @@ func NewCreatePersonRequest(r *http.Request) (CreatePersonRequest, error) {
 }
 
 func (r *CreatePersonRequest) validate() error {
-	return mergeErrors(validation.Errors{
+	return helpers.MergeErrors(validation.Errors{
 		"/data/attributes/name": validation.Validate(&r.Data.Attributes.Name, validation.Required,
 			validation.Length(3, 45)),
 		"/data/attributes/phone": validation.Validate(&r.Data.Attributes.Phone, validation.Required,
@@ -37,14 +37,4 @@ func (r *CreatePersonRequest) validate() error {
 		"/data/relationships/address/data/id": validation.Validate(&r.Data.Relationships.Address.Data.ID,
 			validation.Required, validation.By(helpers.IsInteger)),
 	}).Filter()
-}
-
-func mergeErrors(validationErrors ...validation.Errors) validation.Errors {
-	result := make(validation.Errors)
-	for _, errs := range validationErrors {
-		for key, err := range errs {
-			result[key] = err
-		}
-	}
-	return result
 }
