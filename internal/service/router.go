@@ -29,7 +29,7 @@ func (s *service) router() chi.Router {
 			helpers.CtxPersonsQ(pg.NewPersonsQ(s.db)),
 			helpers.CtxCustomersQ(pg.NewCustomersQ(s.db)),
 		),
-		middleware.BasicAuth(),
+		middleware.BasicAuth(s.endpoints),
 	)
 
 	r.Use(cors.Handler(cors.Options{

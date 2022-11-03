@@ -10,9 +10,18 @@ db:
 listener:
   addr: :9101
 
+
+# if docker false, the first entry point will be used, otherwise the second!!!
+endpoints:
+  docker: true
+  services:
+    - service: "auth_service"
+      entry_points:
+        - "localhost:9110/jwt/login"
+        - "auth_service:9110/jwt/login"
+
 cop:
   disabled: true
-  endpoint: "http://..."
-  upstream: "http://..."
-  service_name: customer-service
-  service_port: 80
+
+
+
