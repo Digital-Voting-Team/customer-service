@@ -74,8 +74,9 @@ jobs:
         uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
         with:
           context: .
-          push: ${{ github.event_name != 'pull_request' }}
-          tags: latest, ${{ steps.meta.outputs.tags }}
+          file: ./Dockerfile
+          push: true
+          tags: latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
