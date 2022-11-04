@@ -10,7 +10,7 @@ on:
 
 env:
   # github.repository as <account>/<repo>
-  IMAGE_NAME: kyrylrs/customer_service
+  IMAGE_NAME: kyrylrs/customer-service
 
 
 jobs:
