@@ -20,6 +20,7 @@ type CustomersQ interface {
 	Page(pageParams pgdb.OffsetPageParams) CustomersQ
 
 	FilterByID(ids ...int64) CustomersQ
+	FilterByUserID(ids ...int64) CustomersQ
 	FilterByDateBefore(time time.Time) CustomersQ
 	FilterByDateAfter(time time.Time) CustomersQ
 

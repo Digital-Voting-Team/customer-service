@@ -5,6 +5,7 @@ import (
 	"github.com/Digital-Voting-Team/customer-service/internal/service/helpers"
 	requests "github.com/Digital-Voting-Team/customer-service/internal/service/requests/customer"
 	"github.com/Digital-Voting-Team/customer-service/resources"
+	staffRes "github.com/Digital-Voting-Team/staff-service/resources"
 	"github.com/spf13/cast"
 	"net/http"
 	"strconv"
@@ -27,12 +28,19 @@ func UpdateCustomer(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	//jwt := r.Context().Value("jwt").(resources_auth.JwtResponse)
-	//if request.Data.Relationships.User.Data.ID != jwt.Data.Relationships.User.Data.ID {
-	//	helpers.Log(r).WithError(err).Info("jwt user is inconsistent with request user")
-	//	ape.RenderErr(w, problems.BadRequest(err)...)
-	//	return
-	//}
+	userId := r.Context().Value("userId").(int64)
+	accessLevel := r.Context().Value("accessLevel").(staffRes.AccessLevel)
+	customerId, _, _, err := helpers.GetIdsForGivenUser(r, userId)
+	if err != nil {
+		helpers.Log(r).WithError(err).Info("wrong relations")
+		ape.RenderErr(w, problems.InternalError())
+		return
+	}
+	if accessLevel != staffRes.Admin && customerId != customer.ID {
+		helpers.Log(r).Info("insufficient user permissions")
+		ape.RenderErr(w, problems.Forbidden())
+		return
+	}
 
 	newCustomer := data.Customer{
 		RegistrationDate: &request.Data.Attributes.RegistrationDate,
@@ -41,9 +49,27 @@ func UpdateCustomer(w http.ResponseWriter, r *http.Request) {
 	}
 
 	relatePerson, err := helpers.PersonsQ(r).FilterByID(newCustomer.PersonID).Get()
-	if err != nil {
-		helpers.Log(r).WithError(err).Error("failed to get new person")
+	if err != nil || relatePerson == nil {
+		helpers.Log(r).WithError(err).Error("failed to get person")
 		ape.RenderErr(w, problems.NotFound())
+		return
+	}
+
+	if customer.UserID != newCustomer.UserID {
+		helpers.Log(r).WithError(err).Error("cannot change customer to user relation")
+		ape.RenderErr(w, problems.Conflict())
+		return
+	}
+
+	resultCustomerByUser, err := helpers.CustomersQ(r).FilterByUserID(customer.UserID).Get()
+	if resultCustomerByUser == nil {
+		helpers.Log(r).WithError(err).Error("user not assigned related to customer")
+		ape.RenderErr(w, problems.Conflict())
+		return
+	}
+	if resultCustomerByUser.ID == 0 || resultCustomerByUser.UserID != newCustomer.UserID {
+		helpers.Log(r).WithError(err).Error("invalid user to update")
+		ape.RenderErr(w, problems.Conflict())
 		return
 	}
 
@@ -85,6 +111,12 @@ func UpdateCustomer(w http.ResponseWriter, r *http.Request) {
 					Data: &resources.Key{
 						ID:   strconv.FormatInt(resultCustomer.PersonID, 10),
 						Type: resources.PERSON,
+					},
+				},
+				User: resources.Relation{
+					Data: &resources.Key{
+						ID:   strconv.FormatInt(resultCustomer.UserID, 10),
+						Type: resources.USER_REF,
 					},
 				},
 			},

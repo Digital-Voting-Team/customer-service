@@ -5,6 +5,7 @@ import (
 	"github.com/Digital-Voting-Team/customer-service/internal/service/helpers"
 	requests "github.com/Digital-Voting-Team/customer-service/internal/service/requests/customer"
 	"github.com/Digital-Voting-Team/customer-service/resources"
+	staffRes "github.com/Digital-Voting-Team/staff-service/resources"
 	"github.com/spf13/cast"
 	"net/http"
 	"strconv"
@@ -14,19 +15,19 @@ import (
 )
 
 func CreateCustomer(w http.ResponseWriter, r *http.Request) {
+	accessLevel := r.Context().Value("accessLevel").(staffRes.AccessLevel)
+	if accessLevel < staffRes.Manager {
+		helpers.Log(r).Info("insufficient user permissions")
+		ape.RenderErr(w, problems.Forbidden())
+		return
+	}
+
 	request, err := requests.NewCreateCustomerRequest(r)
 	if err != nil {
 		helpers.Log(r).WithError(err).Info("wrong request")
 		ape.RenderErr(w, problems.BadRequest(err)...)
 		return
 	}
-	//
-	//jwt := r.Context().Value("jwt").(resources_auth.JwtResponse)
-	//if request.Data.Relationships.User.Data.ID != jwt.Data.Relationships.User.Data.ID {
-	//	helpers.Log(r).WithError(err).Info("jwt user is inconsistent with request user")
-	//	ape.RenderErr(w, problems.BadRequest(err)...)
-	//	return
-	//}
 
 	customer := data.Customer{
 		RegistrationDate: &request.Data.Attributes.RegistrationDate,
@@ -35,9 +36,16 @@ func CreateCustomer(w http.ResponseWriter, r *http.Request) {
 	}
 
 	relatePerson, err := helpers.PersonsQ(r).FilterByID(customer.PersonID).Get()
-	if err != nil {
+	if err != nil || relatePerson == nil {
 		helpers.Log(r).WithError(err).Error("failed to get person")
 		ape.RenderErr(w, problems.NotFound())
+		return
+	}
+
+	resultCustomerByUser, err := helpers.CustomersQ(r).FilterByUserID(customer.UserID).Get()
+	if resultCustomerByUser != nil {
+		helpers.Log(r).WithError(err).Error("User already related to customer")
+		ape.RenderErr(w, problems.Conflict())
 		return
 	}
 

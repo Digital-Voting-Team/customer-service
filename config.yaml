@@ -3,9 +3,9 @@ log:
   level: "info"
 
 db:
-  url: "postgres://postgres:postgres@customer_db/postgres?sslmode=disable"
+#  url: "postgres://postgres:postgres@customer_db/postgres?sslmode=disable"
 # Uncomment to use locally:
-#  url: "postgres://postgres:postgres@localhost:5432/postgres?sslmode=disable"
+  url: "postgres://postgres:postgres@localhost:5435/postgres?sslmode=disable"
 
 listener:
   addr: :9101
@@ -13,12 +13,16 @@ listener:
 
 # if docker false, the first entry point will be used, otherwise the second!!!
 endpoints:
-  docker: true
+  docker: false
   services:
-    - service: "auth_service"
+    - service: "auth-service"
       entry_points:
         - "localhost:9110/jwt/login"
-        - "auth_service:9110/jwt/login"
+        - "auth-service:9110/jwt/login"
+    - service: "staff-service"
+      entry_points:
+        - "localhost:9102/integrations/staff-service/positions/jwt/user"
+        - "staff-service:9102/integrations/staff-service/positions/jwt/user"
 
 cop:
   disabled: true

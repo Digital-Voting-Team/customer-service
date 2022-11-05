@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS public.person
     phone character varying(30),
     email character varying(45),
     birthday timestamp,
-    address_id integer NOT NULL ,
+    address_id integer NOT NULL UNIQUE,
     CONSTRAINT person_id PRIMARY KEY (id),
     CONSTRAINT address_id FOREIGN KEY (address_id)
         REFERENCES public.address (id) MATCH SIMPLE
@@ -61,9 +61,7 @@ CREATE TABLE IF NOT EXISTS public.customer
         REFERENCES public.person (id) MATCH SIMPLE
         ON UPDATE CASCADE
         ON DELETE RESTRICT
-)
-
-    TABLESPACE pg_default;
+) TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.customer
     OWNER to postgres;

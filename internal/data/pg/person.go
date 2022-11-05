@@ -95,6 +95,12 @@ func (p *personsQ) FilterByID(ids ...int64) data.PersonsQ {
 	return p
 }
 
+func (p *personsQ) FilterByAddressID(ids ...int64) data.PersonsQ {
+	p.sql = p.sql.Where(sq.Eq{"address_id": ids})
+	p.sqlUpdate = p.sqlUpdate.Where(sq.Eq{"address_id": ids})
+	return p
+}
+
 func (p *personsQ) FilterByNames(names ...string) data.PersonsQ {
 	p.sql = p.sql.Where(sq.Eq{"name": names})
 	return p

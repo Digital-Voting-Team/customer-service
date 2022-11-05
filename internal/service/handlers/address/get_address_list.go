@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	staffRes "github.com/Digital-Voting-Team/staff-service/resources"
 	"net/http"
 
 	"github.com/Digital-Voting-Team/customer-service/internal/data"
@@ -13,6 +14,13 @@ import (
 )
 
 func GetAddressList(w http.ResponseWriter, r *http.Request) {
+	accessLevel := r.Context().Value("accessLevel").(staffRes.AccessLevel)
+	if accessLevel < staffRes.Manager {
+		helpers.Log(r).Info("insufficient user permissions")
+		ape.RenderErr(w, problems.Forbidden())
+		return
+	}
+
 	request, err := requests.NewGetAddressListRequest(r)
 	if err != nil {
 		ape.RenderErr(w, problems.BadRequest(err)...)

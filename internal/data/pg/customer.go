@@ -93,6 +93,12 @@ func (c *customersQ) FilterByID(ids ...int64) data.CustomersQ {
 	return c
 }
 
+func (c *customersQ) FilterByUserID(ids ...int64) data.CustomersQ {
+	c.sql = c.sql.Where(sq.Eq{"user_id": ids})
+	c.sqlUpdate = c.sqlUpdate.Where(sq.Eq{"user_id": ids})
+	return c
+}
+
 func (c *customersQ) FilterByDateBefore(time time.Time) data.CustomersQ {
 	stmt := sq.LtOrEq{"customer.registration_date": time}
 	c.sql = c.sql.Where(stmt)
