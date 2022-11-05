@@ -1,4 +1,4 @@
-# github.com/Digital-Voting-Team/auth-serivce v0.1.0
+# github.com/Digital-Voting-Team/auth-serivce v0.1.1
 ## explicit; go 1.19
 github.com/Digital-Voting-Team/auth-serivce/endpoints
 github.com/Digital-Voting-Team/auth-serivce/resources
