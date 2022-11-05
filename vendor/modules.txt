@@ -2,7 +2,7 @@
 ## explicit; go 1.19
 github.com/Digital-Voting-Team/auth-serivce/endpoints
 github.com/Digital-Voting-Team/auth-serivce/resources
-# github.com/Digital-Voting-Team/staff-service v1.0.5
+# github.com/Digital-Voting-Team/staff-service v1.0.6
 ## explicit; go 1.19
 github.com/Digital-Voting-Team/staff-service/endpoints
 github.com/Digital-Voting-Team/staff-service/resources
