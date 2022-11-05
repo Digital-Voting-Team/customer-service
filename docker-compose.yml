@@ -13,7 +13,7 @@ services:
       - AUTH_SERVICE=http://127.0.0.1:9110/jwt/login
     volumes:
       - ./config.yaml:/config.yaml
-    command: run service
+    entrypoint: sh -c "customer-service migrate up && customer-service run service"
 
   customer_db:
     image: postgres
@@ -30,11 +30,11 @@ services:
       - database_data:/var/lib/postgresql/data
 
 
-  db:
+  db2:
     image: postgres
     restart: always
     ports:
-      - "5432:5432"
+      - "5435:5432"
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres

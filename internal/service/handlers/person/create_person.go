@@ -5,6 +5,7 @@ import (
 	"github.com/Digital-Voting-Team/customer-service/internal/service/helpers"
 	requests "github.com/Digital-Voting-Team/customer-service/internal/service/requests/person"
 	"github.com/Digital-Voting-Team/customer-service/resources"
+	staffRes "github.com/Digital-Voting-Team/staff-service/resources"
 	"github.com/spf13/cast"
 	"net/http"
 	"strconv"
@@ -14,6 +15,13 @@ import (
 )
 
 func CreatePerson(w http.ResponseWriter, r *http.Request) {
+	accessLevel := r.Context().Value("accessLevel").(staffRes.AccessLevel)
+	if accessLevel < staffRes.Manager {
+		helpers.Log(r).Info("insufficient user permissions")
+		ape.RenderErr(w, problems.Forbidden())
+		return
+	}
+
 	request, err := requests.NewCreatePersonRequest(r)
 	if err != nil {
 		helpers.Log(r).WithError(err).Info("wrong request")
@@ -31,9 +39,16 @@ func CreatePerson(w http.ResponseWriter, r *http.Request) {
 
 	var resultPerson data.Person
 	relateAddress, err := helpers.AddressesQ(r).FilterByID(person.AddressID).Get()
-	if err != nil {
+	if err != nil || relateAddress == nil {
 		helpers.Log(r).WithError(err).Error("failed to get address")
 		ape.RenderErr(w, problems.NotFound())
+		return
+	}
+
+	resultPersonByAddress, err := helpers.PersonsQ(r).FilterByAddressID(person.AddressID).Get()
+	if resultPersonByAddress != nil {
+		helpers.Log(r).WithError(err).Error("address already related to person")
+		ape.RenderErr(w, problems.Conflict())
 		return
 	}
 

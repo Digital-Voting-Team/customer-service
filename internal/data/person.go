@@ -20,6 +20,7 @@ type PersonsQ interface {
 	Page(pageParams pgdb.OffsetPageParams) PersonsQ
 
 	FilterByID(ids ...int64) PersonsQ
+	FilterByAddressID(ids ...int64) PersonsQ
 	FilterByNames(names ...string) PersonsQ
 	FilterByPhones(phones ...string) PersonsQ
 	FilterByEmails(emails ...string) PersonsQ

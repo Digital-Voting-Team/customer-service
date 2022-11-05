@@ -1,7 +1,11 @@
-# github.com/Digital-Voting-Team/auth-serivce v1.0.5
+# github.com/Digital-Voting-Team/auth-serivce v0.1.0
 ## explicit; go 1.19
 github.com/Digital-Voting-Team/auth-serivce/endpoints
 github.com/Digital-Voting-Team/auth-serivce/resources
+# github.com/Digital-Voting-Team/staff-service v1.0.5
+## explicit; go 1.19
+github.com/Digital-Voting-Team/staff-service/endpoints
+github.com/Digital-Voting-Team/staff-service/resources
 # github.com/Masterminds/squirrel v1.5.3
 ## explicit; go 1.14
 github.com/Masterminds/squirrel
@@ -26,7 +30,7 @@ github.com/certifi/gocertifi
 ## explicit; go 1.17
 github.com/decred/dcrd/dcrec/secp256k1/v4
 github.com/decred/dcrd/dcrec/secp256k1/v4/ecdsa
-# github.com/ethereum/go-ethereum v1.10.25
+# github.com/ethereum/go-ethereum v1.10.26
 ## explicit; go 1.17
 github.com/ethereum/go-ethereum/common
 github.com/ethereum/go-ethereum/common/hexutil
@@ -85,8 +89,6 @@ github.com/hashicorp/hcl/json/token
 ## explicit; go 1.10
 github.com/jmoiron/sqlx
 github.com/jmoiron/sqlx/reflectx
-# github.com/kr/pretty v0.3.1
-## explicit; go 1.12
 # github.com/lann/builder v0.0.0-20180802200727-47ae307949d0
 ## explicit
 github.com/lann/builder
@@ -119,6 +121,8 @@ github.com/pelletier/go-toml/v2/internal/tracker
 # github.com/pkg/errors v0.9.1
 ## explicit
 github.com/pkg/errors
+# github.com/rogpeppe/go-internal v1.9.0
+## explicit; go 1.17
 # github.com/rubenv/sql-migrate v1.2.0
 ## explicit; go 1.16
 github.com/rubenv/sql-migrate

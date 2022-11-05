@@ -4,6 +4,7 @@ import (
 	"github.com/Digital-Voting-Team/customer-service/internal/service/helpers"
 	requests "github.com/Digital-Voting-Team/customer-service/internal/service/requests/person"
 	"github.com/Digital-Voting-Team/customer-service/resources"
+	staffRes "github.com/Digital-Voting-Team/staff-service/resources"
 	"net/http"
 	"strconv"
 
@@ -12,6 +13,13 @@ import (
 )
 
 func GetPerson(w http.ResponseWriter, r *http.Request) {
+	accessLevel := r.Context().Value("accessLevel").(staffRes.AccessLevel)
+	if accessLevel < staffRes.Manager {
+		helpers.Log(r).Info("insufficient user permissions")
+		ape.RenderErr(w, problems.Forbidden())
+		return
+	}
+
 	request, err := requests.NewGetPersonRequest(r)
 	if err != nil {
 		helpers.Log(r).WithError(err).Info("wrong request")

@@ -5,6 +5,7 @@ import (
 	"github.com/Digital-Voting-Team/customer-service/internal/service/helpers"
 	requests "github.com/Digital-Voting-Team/customer-service/internal/service/requests/person"
 	"github.com/Digital-Voting-Team/customer-service/resources"
+	staffRes "github.com/Digital-Voting-Team/staff-service/resources"
 	"github.com/spf13/cast"
 	"net/http"
 	"strconv"
@@ -27,6 +28,20 @@ func UpdatePerson(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	userId := r.Context().Value("userId").(int64)
+	accessLevel := r.Context().Value("accessLevel").(staffRes.AccessLevel)
+	_, personId, _, err := helpers.GetIdsForGivenUser(r, userId)
+	if err != nil {
+		helpers.Log(r).WithError(err).Info("wrong relations")
+		ape.RenderErr(w, problems.InternalError())
+		return
+	}
+	if accessLevel != staffRes.Admin && personId != person.ID {
+		helpers.Log(r).Info("insufficient user permissions")
+		ape.RenderErr(w, problems.Forbidden())
+		return
+	}
+
 	newPerson := data.Person{
 		Name:      request.Data.Attributes.Name,
 		Phone:     request.Data.Attributes.Phone,
@@ -36,9 +51,16 @@ func UpdatePerson(w http.ResponseWriter, r *http.Request) {
 	}
 
 	relateAddress, err := helpers.AddressesQ(r).FilterByID(newPerson.AddressID).Get()
-	if err != nil {
+	if err != nil || relateAddress == nil {
 		helpers.Log(r).WithError(err).Error("failed to get new address")
 		ape.RenderErr(w, problems.NotFound())
+		return
+	}
+
+	resultPersonByAddress, err := helpers.PersonsQ(r).FilterByAddressID(person.AddressID).Get()
+	if resultPersonByAddress.ID == 0 || resultPersonByAddress.AddressID != newPerson.AddressID {
+		helpers.Log(r).WithError(err).Error("invalid address to update")
+		ape.RenderErr(w, problems.Conflict())
 		return
 	}
 

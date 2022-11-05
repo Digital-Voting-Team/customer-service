@@ -5,6 +5,7 @@ import (
 	"github.com/Digital-Voting-Team/customer-service/internal/service/helpers"
 	requests "github.com/Digital-Voting-Team/customer-service/internal/service/requests/address"
 	"github.com/Digital-Voting-Team/customer-service/resources"
+	staffRes "github.com/Digital-Voting-Team/staff-service/resources"
 	"net/http"
 
 	"gitlab.com/distributed_lab/ape"
@@ -12,6 +13,13 @@ import (
 )
 
 func CreateAddress(w http.ResponseWriter, r *http.Request) {
+	accessLevel := r.Context().Value("accessLevel").(staffRes.AccessLevel)
+	if accessLevel < staffRes.Manager {
+		helpers.Log(r).Info("insufficient user permissions")
+		ape.RenderErr(w, problems.Forbidden())
+		return
+	}
+
 	request, err := requests.NewCreateAddressRequest(r)
 	if err != nil {
 		helpers.Log(r).WithError(err).Info("wrong request")
