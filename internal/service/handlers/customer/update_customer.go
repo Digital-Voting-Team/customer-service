@@ -47,6 +47,14 @@ func UpdateCustomer(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	resultCustomerByUser, err := helpers.CustomersQ(r).FilterByUserID(customer.UserID).Get()
+	if (resultCustomerByUser != nil || resultCustomerByUser.ID != 0) &&
+		resultCustomerByUser.UserID != newCustomer.UserID {
+		helpers.Log(r).WithError(err).Error("User already related to customer")
+		ape.RenderErr(w, problems.Conflict())
+		return
+	}
+
 	var resultCustomer data.Customer
 	resultCustomer, err = helpers.CustomersQ(r).FilterByID(customer.ID).Update(newCustomer)
 	if err != nil {
@@ -85,6 +93,12 @@ func UpdateCustomer(w http.ResponseWriter, r *http.Request) {
 					Data: &resources.Key{
 						ID:   strconv.FormatInt(resultCustomer.PersonID, 10),
 						Type: resources.PERSON,
+					},
+				},
+				User: resources.Relation{
+					Data: &resources.Key{
+						ID:   strconv.FormatInt(resultCustomer.UserID, 10),
+						Type: resources.USER_REF,
 					},
 				},
 			},

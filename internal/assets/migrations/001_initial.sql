@@ -61,9 +61,7 @@ CREATE TABLE IF NOT EXISTS public.customer
         REFERENCES public.person (id) MATCH SIMPLE
         ON UPDATE CASCADE
         ON DELETE RESTRICT
-)
-
-    TABLESPACE pg_default;
+) TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.customer
     OWNER to postgres;

@@ -20,7 +20,7 @@ func CreateCustomer(w http.ResponseWriter, r *http.Request) {
 		ape.RenderErr(w, problems.BadRequest(err)...)
 		return
 	}
-	//
+
 	//jwt := r.Context().Value("jwt").(resources_auth.JwtResponse)
 	//if request.Data.Relationships.User.Data.ID != jwt.Data.Relationships.User.Data.ID {
 	//	helpers.Log(r).WithError(err).Info("jwt user is inconsistent with request user")
@@ -38,6 +38,13 @@ func CreateCustomer(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		helpers.Log(r).WithError(err).Error("failed to get person")
 		ape.RenderErr(w, problems.NotFound())
+		return
+	}
+
+	resultCustomerByUser, err := helpers.CustomersQ(r).FilterByUserID(customer.UserID).Get()
+	if resultCustomerByUser != nil || resultCustomerByUser.ID != 0 {
+		helpers.Log(r).WithError(err).Error("User already related to customer")
+		ape.RenderErr(w, problems.Conflict())
 		return
 	}
 

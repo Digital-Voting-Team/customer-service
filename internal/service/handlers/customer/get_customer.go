@@ -69,6 +69,12 @@ func GetCustomer(w http.ResponseWriter, r *http.Request) {
 						Type: resources.PERSON,
 					},
 				},
+				User: resources.Relation{
+					Data: &resources.Key{
+						ID:   strconv.FormatInt(resultCustomer.UserID, 10),
+						Type: resources.USER_REF,
+					},
+				},
 			},
 		},
 		Included: includes,

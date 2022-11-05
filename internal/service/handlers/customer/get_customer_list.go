@@ -64,6 +64,12 @@ func newCustomerList(customers []data.Customer) []resources.Customer {
 						Type: resources.PERSON,
 					},
 				},
+				User: resources.Relation{
+					Data: &resources.Key{
+						ID:   strconv.FormatInt(customer.UserID, 10),
+						Type: resources.USER_REF,
+					},
+				},
 			},
 		}
 	}
