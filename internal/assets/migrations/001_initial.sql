@@ -11,9 +11,7 @@ CREATE TABLE IF NOT EXISTS public.address
     region character varying(45),
     postal_code character varying(45),
     CONSTRAINT address_id PRIMARY KEY (id)
-)
-
-    TABLESPACE pg_default;
+) TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.address
     OWNER to postgres;
