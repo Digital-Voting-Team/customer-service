@@ -51,7 +51,7 @@ VALUES ('Derek', '+380435815532', 'your.funny.email@lol.tik', 1);
 CREATE TABLE IF NOT EXISTS public.customer
 (
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
-    person_id integer NOT NULL,
+    person_id integer NOT NULL UNIQUE,
     user_id integer UNIQUE,
     registration_date timestamp NOT NULL ,
     CONSTRAINT customer_id PRIMARY KEY (id),

@@ -35,6 +35,13 @@ func CreateCustomer(w http.ResponseWriter, r *http.Request) {
 		UserID:           cast.ToInt64(request.Data.Relationships.User.Data.ID),
 	}
 
+	resultCustomerByPerson, err := helpers.CustomersQ(r).FilterByPersonID(customer.PersonID).Get()
+	if resultCustomerByPerson != nil {
+		helpers.Log(r).WithError(err).Error("person already related to customer")
+		ape.RenderErr(w, problems.Conflict())
+		return
+	}
+
 	relatePerson, err := helpers.PersonsQ(r).FilterByID(customer.PersonID).Get()
 	if err != nil || relatePerson == nil {
 		helpers.Log(r).WithError(err).Error("failed to get person")
