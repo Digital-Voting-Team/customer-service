@@ -3,9 +3,9 @@ log:
   level: "info"
 
 db:
-#  url: "postgres://postgres:postgres@customer_db/postgres?sslmode=disable"
+  url: "postgres://postgres:postgres@customer-db/postgres?sslmode=disable"
 # Uncomment to use locally:
-  url: "postgres://postgres:postgres@localhost:5435/postgres?sslmode=disable"
+#  url: "postgres://postgres:postgres@localhost:5435/postgres?sslmode=disable"
 
 listener:
   addr: :9101
@@ -21,8 +21,8 @@ endpoints:
         - "auth-service:9110/jwt/login"
     - service: "staff-service"
       entry_points:
-        - "localhost:9102/integrations/staff-service/positions/jwt/user"
-        - "staff-service:9102/integrations/staff-service/positions/jwt/user"
+        - "localhost:9102/jwt/user"
+        - "staff-service:9102/jwt/user"
 
 cop:
   disabled: true
