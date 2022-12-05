@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"context"
-	authEndoints "github.com/Digital-Voting-Team/auth-serivce/endpoints"
+	authEndoints "github.com/Digital-Voting-Team/auth-service/endpoints"
 	"github.com/Digital-Voting-Team/customer-service/internal/config"
 	"github.com/Digital-Voting-Team/customer-service/internal/service/helpers"
 	staffEndoints "github.com/Digital-Voting-Team/staff-service/endpoints"

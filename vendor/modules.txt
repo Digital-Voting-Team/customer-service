@@ -1,8 +1,8 @@
-# github.com/Digital-Voting-Team/auth-serivce v1.1.0
+# github.com/Digital-Voting-Team/auth-service v1.2.4
 ## explicit; go 1.19
-github.com/Digital-Voting-Team/auth-serivce/endpoints
-github.com/Digital-Voting-Team/auth-serivce/resources
-# github.com/Digital-Voting-Team/staff-service v1.0.7
+github.com/Digital-Voting-Team/auth-service/endpoints
+github.com/Digital-Voting-Team/auth-service/resources
+# github.com/Digital-Voting-Team/staff-service v1.0.9
 ## explicit; go 1.19
 github.com/Digital-Voting-Team/staff-service/endpoints
 github.com/Digital-Voting-Team/staff-service/resources

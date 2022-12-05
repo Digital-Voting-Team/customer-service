@@ -2,7 +2,7 @@ package endpoints
 
 import (
 	"encoding/json"
-	"github.com/Digital-Voting-Team/auth-serivce/resources"
+	"github.com/Digital-Voting-Team/auth-service/resources"
 	"gitlab.com/distributed_lab/logan/v3/errors"
 	"net/http"
 )
@@ -18,7 +18,7 @@ func ParseJwtResponse(r *http.Response) (*resources.JwtResponse, error) {
 }
 
 func ValidateToken(token, endpoint string) (*resources.JwtResponse, error) {
-	req, err := http.NewRequest("GET", endpoint, nil)
+	req, err := http.NewRequest("POST", endpoint, nil)
 	if err != nil {
 		return nil, errors.Wrap(err, "Unable to build new request")
 	}

@@ -45,7 +45,7 @@ func (s *service) router() chi.Router {
 
 	r.Route("/integrations/customer-service", func(r chi.Router) {
 		r.Route("/addresses", func(r chi.Router) {
-			r.Post("/", address.CreateAddress)
+			r.Post("/", address.CreateAddress(s.endpoints))
 			r.Get("/", address.GetAddressList)
 			r.Route("/{id}", func(r chi.Router) {
 				r.Get("/", address.GetAddress)
