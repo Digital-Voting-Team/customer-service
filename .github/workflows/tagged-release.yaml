@@ -1,0 +1,22 @@
+name: "tagged-release"
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  tagged-release:
+    permissions: write-all
+    name: "Tagged Release"
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITH_TOKEN }}"
+          prerelease: false
+          files: |
+            endpoints
+            jwt
+            resources
+            utils
